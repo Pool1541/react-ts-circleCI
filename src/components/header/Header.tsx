@@ -17,10 +17,10 @@ export default function Header({ title, description, element }: HeaderProps): JS
           justifyContent="center"
           alignItems="center"
           sx={{ height: '100%' }}>
-          <Grid item xs={5}>
+          <Grid item xs={12} sm={10} md={8} xl={5}>
             <Grid
               container
-              direction="row"
+              direction="column"
               justifyContent="center"
               alignItems="center"
               sx={{ height: '100%' }}>

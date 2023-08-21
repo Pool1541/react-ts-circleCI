@@ -18,15 +18,24 @@ export default function Character(): JSX.Element {
   }, [characterID]);
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ width: '100%' }} mt={10}>
       <Container maxWidth="xl">
         {loading ? (
           <Box sx={{ display: 'flex', justifyContent: 'center', mt: 4 }}>
             <CircularProgress />
           </Box>
         ) : (
-          <Grid container columnSpacing={2} sx={{ mt: 2 }}>
-            <Grid item xs={6}>
+          <Grid
+            container
+            columnSpacing={4}
+            rowSpacing={4}
+            mt={2}
+            sx={{
+              flexDirection: { xs: 'column-reverse', sm: 'row' },
+              alignContent: 'center',
+              flexWrap: 'nowrap',
+            }}>
+            <Grid item xs={12} md={6}>
               <Typography variant="h1">{data!.name}</Typography>
               <Divider />
               <Typography variant="h6">{data!.origin.name}</Typography>
@@ -44,7 +53,7 @@ export default function Character(): JSX.Element {
                 />
               </Box>
             </Grid>
-            <Grid item xs={6}>
+            <Grid item xs={12} md={6}>
               <img src={data!.image} style={{ width: '100%', borderRadius: '0.5em' }} />
             </Grid>
           </Grid>

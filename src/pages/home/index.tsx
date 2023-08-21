@@ -49,7 +49,7 @@ export default function Home(): JSX.Element {
         <>
           <Grid container spacing={4} my={5}>
             {characters.map((character) => (
-              <Grid item key={character.id} xs={3}>
+              <Grid item key={character.id} xs={12} sm={6} md={3}>
                 <CardComponent
                   image={character.image}
                   name={character.name}

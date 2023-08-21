@@ -55,7 +55,7 @@ export default function CardComponent({
   }, [cartState, id]);
 
   return (
-    <Card sx={{ maxWidth: 300 }}>
+    <Card>
       <CardMedia component="img" height="194" image={image} alt="Paella dish" />
       <CardContent>
         <Typography variant="h4" sx={{ mb: 1.5 }} noWrap>
