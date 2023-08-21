@@ -1,4 +1,4 @@
-import { ThemeProvider, createTheme } from '@mui/material';
+import { ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material';
 import { ReactNode } from 'react';
 import CssBaseline from '@mui/material/CssBaseline/CssBaseline';
 
@@ -14,7 +14,7 @@ enum themePalette {
   BG_ERROR_MAIN = 'rgba(244,67,54,0.1)',
 }
 
-const theme = createTheme({
+let theme = createTheme({
   palette: {
     mode: 'dark',
     background: {
@@ -26,6 +26,11 @@ const theme = createTheme({
   },
   typography: {
     fontFamily: themePalette.FONT_GLOBAL,
+    h1: {
+      '@media (max-width: 600px)': {
+        fontSize: '3rem',
+      },
+    },
   },
   components: {
     MuiButton: {
@@ -69,6 +74,20 @@ const theme = createTheme({
     },
   },
 });
+
+// theme.typography.h1 = {
+//   [theme.breakpoints.up('xs')]: {
+//     fontSize: '3rem',
+//   },
+//   [theme.breakpoints.up('sm')]: {
+//     fontSize: '4rem',
+//   },
+//   [theme.breakpoints.up('md')]: {
+//     fontSize: '6rem',
+//   },
+// };
+
+theme = responsiveFontSizes(theme);
 
 export default function ThemeConfig({ children }: ThemeProps): JSX.Element {
   return (

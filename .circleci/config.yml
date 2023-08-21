@@ -33,8 +33,7 @@ jobs:
           at: .
       - run:
           name: Vercel Prod Deploy
-          command: vercel --prod --build-env REACT_APP_BASEURL=https://rickandmortyapi.com/api/ --name $VERCEL_PROJECT_NAME --scope $VERCEL_SCOPE --token=$VERCEL_TOKEN --yes
-workflows:
+          command: vercel --prod --build-env VITE_APP_BASEURL=https://rickandmortyapi.com/api/ --name $VERCEL_PROJECT_NAME --scope $VERCEL_SCOPE --token=$VERCEL_TOKEN --yes
   version: 2
   deploy-reactapp:
     jobs:
