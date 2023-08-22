@@ -33,7 +33,7 @@ jobs:
           at: .
       - run:
           name: Vercel Prod Deploy
-          command: vercel --prod --build-env VITE_APP_BASEURL=https://rickandmortyapi.com/api/ --name $VERCEL_PROJECT_NAME --scope $VERCEL_SCOPE --token=$VERCEL_TOKEN --yes
+          command: vercel --prod --build-env VITE_APP_BASEURL=https://rickandmortyapi.com/api/ --build-env VITE_APP_APIKEY=AIzaSyDfxe_66F_FuWb7d60AOoiWKFHk5WkMIFQ --build-env VITE_APP_AUTHDOMAIN=chat-9ddea.firebaseapp.com --build-env VITE_APP_PROJECTID=chat-9ddea --build-env VITE_APP_STORAGEBUCKET=chat-9ddea.appspot.com --build-env VITE_APP_MESSAGINGSENDERID=223834286296 --build-env VITE_APP_APPID=1:223834286296:web:e1aa09343f1c55a49c8fad --name $VERCEL_PROJECT_NAME --scope $VERCEL_SCOPE --token=$VERCEL_TOKEN --yes
   version: 2
   deploy-reactapp:
     jobs:
