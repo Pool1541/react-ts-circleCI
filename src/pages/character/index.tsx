@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Box, Container, Grid, CircularProgress, Typography, Divider, Chip } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import { getCharacterById } from '../../services/characters';
+import { getCharacterById } from '../../services/characters.service';
 import { ICharacter } from '../../models/Character.model';
 
 export default function Character(): JSX.Element {

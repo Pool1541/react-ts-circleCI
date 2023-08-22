@@ -9,20 +9,31 @@ import {
   IconButton,
   Badge,
   Link,
+  Button,
 } from '@mui/material';
 import { ShoppingCartOutlined } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
 import { Routes } from '../../config/routes';
 import { useState } from 'react';
-import { useAppSelector } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useCookies } from 'react-cookie';
 import Cart from './Cart';
+import { logoutThunk } from '../../redux/thunks/auth.thunk';
 
 export default function Navbar(): JSX.Element {
+  const dispatch = useAppDispatch();
+  const [, , remove] = useCookies();
   const items = useAppSelector((state) => state.cartReducer);
+  const { isAuth } = useAppSelector((state) => state.authReduce);
   const [open, setOpen] = useState<boolean>(false);
 
   const handleStateViewDrawer = () => {
     setOpen((state) => !state);
+  };
+
+  const handleLogout = () => {
+    dispatch(logoutThunk());
+    remove('accessToken');
   };
 
   return (
@@ -41,20 +52,28 @@ export default function Navbar(): JSX.Element {
                       <ShoppingCartOutlined />
                     </Badge>
                   </IconButton>
-                  <Link
-                    component={RouterLink}
-                    to={Routes.Login}
-                    underline="none"
-                    sx={{ display: { xs: 'none', sm: 'block' } }}>
-                    Inicia sesión
-                  </Link>
-                  <Link
-                    component={RouterLink}
-                    to={Routes.Signup}
-                    underline="none"
-                    sx={{ display: { xs: 'none', sm: 'block' } }}>
-                    Registrate
-                  </Link>
+                  {isAuth ? (
+                    <Button variant="contained" onClick={handleLogout}>
+                      Logout
+                    </Button>
+                  ) : (
+                    <>
+                      <Link
+                        component={RouterLink}
+                        to={Routes.Login}
+                        underline="none"
+                        sx={{ display: { xs: 'none', sm: 'block' } }}>
+                        Inicia sesión
+                      </Link>
+                      <Link
+                        component={RouterLink}
+                        to={Routes.Signup}
+                        underline="none"
+                        sx={{ display: { xs: 'none', sm: 'block' } }}>
+                        Registrate
+                      </Link>
+                    </>
+                  )}
                 </Stack>
               </Grid>
             </Grid>

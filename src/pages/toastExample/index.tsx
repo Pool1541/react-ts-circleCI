@@ -1,7 +1,7 @@
 import { Container, Button, Stack, AlertColor } from '@mui/material';
 import useNotification from '../../hooks/useNotification';
 import { useEffect } from 'react';
-import { getCharacterById } from '../../services/characters';
+import { getCharacterById } from '../../services/characters.service';
 
 export default function ToastExample(): JSX.Element {
   const { toast } = useNotification();

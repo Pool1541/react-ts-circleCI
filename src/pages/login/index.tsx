@@ -2,6 +2,8 @@ import { useFormik } from 'formik';
 import { Box, Button, Container, Grid, Paper, Stack, TextField, Typography } from '@mui/material';
 import { validationSchema } from '../../utils/ValidateLoginForm';
 import useNotification from '../../hooks/useNotification';
+import { authThunk } from '../../redux/thunks/auth.thunk';
+import { useAppDispatch } from '../../redux/hooks';
 
 type LoginDataType = {
   email: string;
@@ -10,6 +12,7 @@ type LoginDataType = {
 
 export default function Login(): JSX.Element {
   const { toast } = useNotification();
+  const dispatch = useAppDispatch();
 
   const formik = useFormik<LoginDataType>({
     initialValues: {
@@ -19,6 +22,7 @@ export default function Login(): JSX.Element {
     validationSchema: validationSchema,
     onSubmit: (values, { setSubmitting }) => {
       try {
+        dispatch(authThunk(values));
         toast(`Bienvenido ${values.email}`, 'success');
       } catch (error) {
         toast((error as Error).message, 'error');

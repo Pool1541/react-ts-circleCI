@@ -1,7 +1,7 @@
 import { Container, Button, Stack, Grid, Pagination, CircularProgress, Box } from '@mui/material';
 import { CardComponent, Header } from '../../components';
 import { useEffect, useState } from 'react';
-import { getCharacters } from '../../services/characters';
+import { getCharacters } from '../../services/characters.service';
 import { ICharacter } from '../../models/Character.model';
 
 export default function Home(): JSX.Element {
