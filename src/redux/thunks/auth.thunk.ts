@@ -1,6 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { UserCredentials } from '../../types/user.type';
 import { authUserWithEmailAndPassword, logOut } from '../../services/firebase.service';
+import { FirebaseError } from 'firebase/app';
 
 export const authThunk = createAsyncThunk(
   'firebase/auth',
@@ -13,7 +14,12 @@ export const authThunk = createAsyncThunk(
 
       return { userData: { email: registerEmail, uid }, accessToken, expirationTime };
     } catch (error) {
-      return rejectWithValue(error);
+      const serializableError = error as FirebaseError;
+      return rejectWithValue({
+        code: serializableError.code,
+        meta: serializableError.customData,
+        name: serializableError.name,
+      });
     }
   }
 );
@@ -22,6 +28,11 @@ export const logoutThunk = createAsyncThunk('firebase/logout', async (_, { rejec
   try {
     await logOut();
   } catch (error) {
-    return rejectWithValue(error);
+    const serializableError = error as FirebaseError;
+    return rejectWithValue({
+      code: serializableError.code,
+      meta: serializableError.customData,
+      name: serializableError.name,
+    });
   }
 });

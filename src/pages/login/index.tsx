@@ -1,16 +1,26 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useFormik } from 'formik';
 import { Box, Button, Container, Grid, Paper, Stack, TextField, Typography } from '@mui/material';
 import { validationSchema } from '../../utils/ValidateLoginForm';
 import useNotification from '../../hooks/useNotification';
 import { authThunk } from '../../redux/thunks/auth.thunk';
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
+import { useEffect } from 'react';
+import { firebaseCodeErros } from '../../services/errors/firebaseErrors';
 
 type LoginDataType = {
   email: string;
   password: string;
 };
 
+type FirebaseErrorType = {
+  code: string;
+  customData: unknown;
+  name: string;
+};
+
 export default function Login(): JSX.Element {
+  const { error } = useAppSelector((state) => state.authReduce);
   const { toast } = useNotification();
   const dispatch = useAppDispatch();
 
@@ -23,14 +33,20 @@ export default function Login(): JSX.Element {
     onSubmit: (values, { setSubmitting }) => {
       try {
         dispatch(authThunk(values));
-        toast(`Bienvenido ${values.email}`, 'success');
       } catch (error) {
-        toast((error as Error).message, 'error');
+        console.error(error);
       } finally {
         setSubmitting(false);
       }
     },
   });
+
+  useEffect(() => {
+    if (error) {
+      const assertedError = error as FirebaseErrorType;
+      toast(firebaseCodeErros[assertedError.code] || firebaseCodeErros['default'], 'error');
+    }
+  }, [error]);
 
   // const [loginData, setLoginData] = useState<LoginDataType>({
   //   email: '',

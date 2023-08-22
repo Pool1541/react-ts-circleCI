@@ -52,9 +52,11 @@ export const authSlice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(authThunk.pending, (state) => {
       state.loading = true;
+      state.error = null;
     });
     builder.addCase(authThunk.fulfilled, (state, action) => {
       state.loading = false;
+      state.error = null;
       state.success = true;
       state.accessToken = action.payload.accessToken;
       state.isAuth = true;
@@ -75,6 +77,7 @@ export const authSlice = createSlice({
       state.isAuth = false;
       state.isExpired = false;
       state.userData = null;
+      state.error = null;
     });
     builder.addCase(logoutThunk.rejected, (state, action) => {
       state.error = action.payload;
